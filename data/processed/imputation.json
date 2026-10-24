@@ -1,0 +1,26 @@
+{
+  "rate_tb": {
+    "mae_log_regional_median": 0.7239584942401631,
+    "mae_log_label_propagation": 0.8260321780912359,
+    "mae_log_graph_model": 0.7475756145257072,
+    "n_missing": 258,
+    "method_used": "regional median",
+    "error_reduction_vs_median": 0.0
+  },
+  "rate_pneumonia": {
+    "mae_log_regional_median": 1.1056587266672218,
+    "mae_log_label_propagation": 1.1607138447007186,
+    "mae_log_graph_model": 1.3223723972899681,
+    "n_missing": 170,
+    "method_used": "regional median",
+    "error_reduction_vs_median": 0.0
+  },
+  "rate_hypertension": {
+    "mae_log_regional_median": 1.004105216362497,
+    "mae_log_label_propagation": 0.9146338113070134,
+    "mae_log_graph_model": 0.88965628008503,
+    "n_missing": 158,
+    "method_used": "graph model",
+    "error_reduction_vs_median": 0.11398101953107409
+  }
+}

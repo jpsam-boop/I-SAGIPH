@@ -1,0 +1,316 @@
+{
+  "mode": "real",
+  "travel_time_source": "road network for 37,739 of 41,985 barangays (90%, 17 regions); straight-line fallback (effective-speed assumption 15 km/h, circuity 1.4; configured transport assumptions for geographic context) elsewhere",
+  "road_network_population_share": 0.9171171628153919,
+  "hospital_access_estimate": {
+    "estimate_type": "model-derived population-weighted hospital access estimate",
+    "facility_scope": "licensed hospitals and included infirmaries in the analysis facility table",
+    "threshold_minutes": 30,
+    "population_total": 108451695,
+    "population_within_threshold": 89688824,
+    "population_outside_threshold": 18762871,
+    "share_within_threshold": 0.8269932909056011,
+    "share_outside_threshold": 0.17300670909439883,
+    "road_network_population_share": 0.9171171628153919,
+    "transport_assumptions": {
+      "fallback_effective_speed_kmh": 15.0,
+      "straight_line_circuity": 1.4,
+      "road_access_egress_speed_kmh": 15.0,
+      "road_class_speeds_kmh": "src/isagiph/roadtimes.py DEFAULT_SPEEDS"
+    },
+    "interpretation": "This is an estimate under the configured transport assumptions, population allocation and licensed hospital/infirmary inventory. It estimates the number of residents modeled as outside the 30-minute hospital threshold; it is not a count of patients who failed to obtain care. Where the supplied DOH reference figure is available, compare it with this estimate as an external check after the travel-time calculation.",
+    "reference_comparison": {
+      "role": "external comparison after estimation",
+      "description": "Compare the modeled population beyond 30 minutes from a hospital with the supplied DOH reference figure, where definitions and geographic scope align."
+    }
+  },
+  "weighting": "pca",
+  "n_runs": 1000,
+  "global_moran": {
+    "I": 0.7067301801788256,
+    "EI": -0.000612369871402327,
+    "p_sim": 0.001,
+    "z_sim": 53.232243313116925
+  },
+  "permutations": 999,
+  "knn_k": 6,
+  "beds_per_1000": 1.25,
+  "goal_2040": 4.0,
+  "instability_threshold": 0.2,
+  "provenance": {
+    "recorded_at_utc": "2026-10-24T15:06:26.414225+00:00",
+    "seed": 42,
+    "python_version": "3.11.17",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "package_versions": {
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.9.1",
+      "streamlit": "1.66.1",
+      "geopandas": "1.2.0",
+      "libpysal": "4.14.1",
+      "esda": "2.9.0"
+    },
+    "sha256_files": {
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\config\\config.yaml": {
+        "sha256": "a9137a97d37705f085875a9bee0bfd98ebcf110cbd7215540bfb5c0e5d9ded12",
+        "bytes": 5438
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\lgus.csv": {
+        "sha256": "3bc3bfee05dc79f3c05340809e8e7f9b51de5590b0d882e09adcdca36a94c998",
+        "bytes": 396038
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\points.csv": {
+        "sha256": "9c6ca531fefee18bca5740d37b85674b2aee06c813da6d17370c8ba5ba74538d",
+        "bytes": 2702935
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\facilities.csv": {
+        "sha256": "b6f58fe8bec291c214aebd9aea5c401b77ec5e52ad0fda462fb2d757b20115d5",
+        "bytes": 232744
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\imputation.json": {
+        "sha256": "d6d0cd1907e5ce158044c3f8db08af2df16671e8e85fa29a138464944b1ea160",
+        "bytes": 857
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_bangsamoro_autonomous_region_in_muslim_mindanao_barmm.csv": {
+        "sha256": "3784eabdcf07e7017efdb2757d1257c3d47ec3c2cb522f5c07be1a856206a529",
+        "bytes": 2060943
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_cordillera_administrative_region_car.csv": {
+        "sha256": "1e5fe3c9d9f04c72246d9edf10f26be22cfbf4176de3f5c1326f6088f6875442",
+        "bytes": 857078
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_mimaropa_region.csv": {
+        "sha256": "01459c122faffc8406fd0263950bdfae4b62c225439a32cc0595a834158fe536",
+        "bytes": 307082
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_national_capital_region_ncr.csv": {
+        "sha256": "71c456f6833a93a9c87ca3c0df323fcb6f54b7b5e4206d3440f35e80624ff548",
+        "bytes": 26445006
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_i_ilocos_region.csv": {
+        "sha256": "d99c2136d73f543f3d70ad390987e0f1d6b4a8b73165e7fbed4e0257a9d27c77",
+        "bytes": 6479928
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_ii_cagayan_valley.csv": {
+        "sha256": "ddf8278b7a68c3e456ee44e70a52fdfbb61fb224ccb97809d892d7d540f88df9",
+        "bytes": 2676049
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_iii_central_luzon.csv": {
+        "sha256": "3405572b74ccee679d742bbc760fda3db3fe65c4695ebbb6aea8f11d4720ca39",
+        "bytes": 22171644
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_iv_a_calabarzon.csv": {
+        "sha256": "41a6ff133e313c0ffef9ed51f4ec1bee0bab1af23d41450af09f6d960d9fa3aa",
+        "bytes": 21664799
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_ix_zamboanga_peninsula.csv": {
+        "sha256": "fe3de411be814f3774ad3f26b7882aee124997e306368a9652f460a80ae09752",
+        "bytes": 477111
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_v_bicol_region.csv": {
+        "sha256": "7f0b0ee5743b6b0d21e725bdeb03e7bf15cb3b702fd49d6e02e5a53aaec33dc9",
+        "bytes": 2626216
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_vi_western_visayas.csv": {
+        "sha256": "c731e2aaca74c2e72b7c54c0820b64bb587624288983722954ca8a2f356950fc",
+        "bytes": 1058922
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_vii_central_visayas.csv": {
+        "sha256": "c69fbdd6e775da7a560d699d1354ef7677fffa6c08cc2fd348c9a12bf7474f5c",
+        "bytes": 1229067
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_viii_eastern_visayas.csv": {
+        "sha256": "e86e781f127b9580c8f9b322efd29b2ba5efc43c570004c9c16a30fc29065964",
+        "bytes": 1874024
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_x_northern_mindanao.csv": {
+        "sha256": "062e4c2fd71eca9184b861aff985574d569e98014b3bd73175ff77a4eafcccc5",
+        "bytes": 1389161
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_xi_davao_region.csv": {
+        "sha256": "62b9b41cce7c7fac31497bacb24f3cdbe3b17effdd5e5e0a97fa041651c9ac52",
+        "bytes": 1724121
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_xii_soccsksargen.csv": {
+        "sha256": "a566c375e6d668a1bd514de7c94308aee4cfe296bf82ea9ec5058d26890a6cbd",
+        "bytes": 1982177
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_times_region_xiii_caraga.csv": {
+        "sha256": "a86862830dfc80b145a0d735385b984cc723a00400e6a4cb32092f81772aa624",
+        "bytes": 465157
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_bangsamoro_autonomous_region_in_muslim_mindanao_barmm.csv": {
+        "sha256": "30bdbaa7231e8b6a8c659067e48a7e38fae01f7fafe037697461099691e104de",
+        "bytes": 29984
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_cordillera_administrative_region_car.csv": {
+        "sha256": "006857e238bb31b6a1dbc4dc2cc6c66b9a1e619a5cf680587a1d9e9dc37218a4",
+        "bytes": 14752
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_mimaropa_region.csv": {
+        "sha256": "cd7c15ead34a8a345ca5311fee14c6fa9188634a487c7d80c2984b6e6a477c10",
+        "bytes": 18126
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_national_capital_region_ncr.csv": {
+        "sha256": "4033a0996acb3293ed06551dd3091e6d7190062f2f3b9df1cbf9f1f29f8d8879",
+        "bytes": 23978
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_i_ilocos_region.csv": {
+        "sha256": "dace4ab3cb2c2a9cc9b00c5ccd5d20e59a965f34c9f21bd9dcf84f41baf64456",
+        "bytes": 45342
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_ii_cagayan_valley.csv": {
+        "sha256": "625b146ac2c35558b7349480e364ad888726f355d9ff62931b8f8c8cb562ce7c",
+        "bytes": 31258
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_iii_central_luzon.csv": {
+        "sha256": "a5e9a350a25a646305dda1f44b0e565eeb69e6124bf5f021d40ec99c414c20f3",
+        "bytes": 42024
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_iv_a_calabarzon.csv": {
+        "sha256": "4965800bc7df8d0939dfa6527918bc05434c92a6c06ef6cdd96cd028c537259b",
+        "bytes": 54358
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_ix_zamboanga_peninsula.csv": {
+        "sha256": "b8d086195ed504255f0fb94cee589b66fa60389d7e346b0bbfa49dbc2c16444c",
+        "bytes": 18126
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_v_bicol_region.csv": {
+        "sha256": "0c4a29136e0286b06b4ec552ea11096d3cccdc74d0ef1cef316aefcee938ad66",
+        "bytes": 46476
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_vi_western_visayas.csv": {
+        "sha256": "52682d4adee8af4e14c57243796001285a887c16dda7af76e3f23b9bb2ed7a1e",
+        "bytes": 49402
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_vii_central_visayas.csv": {
+        "sha256": "11bfef09628edb9289b47986a0f30f3df190f3b66838abfad638abe9e399c4b4",
+        "bytes": 29620
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_viii_eastern_visayas.csv": {
+        "sha256": "14cad4132858afe33044cfa302e496536b9a853c1d77d142ba3aa4c42a2e1434",
+        "bytes": 55156
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_x_northern_mindanao.csv": {
+        "sha256": "26579d946f5f8c3d4ece32740f630422e819e2f04345d2db2fa894a1107333d7",
+        "bytes": 22564
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_xi_davao_region.csv": {
+        "sha256": "2b16760ca4a767c56019ddd43f5b7ea6106d128007ee1d3ebb7364b6f1485d53",
+        "bytes": 15662
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_xii_soccsksargen.csv": {
+        "sha256": "b46a35f95ce83b32793f3c4e408643cf1f2c557a6540b02f856f868d9efaf24c",
+        "bytes": 14962
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\interim\\road_points_region_xiii_caraga.csv": {
+        "sha256": "5de2da15fe1798351c8b25346f3d2562633aefa6a4b58b8edaf9c4cd92922244",
+        "bytes": 16726
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\manual\\health_facilities.gpkg": {
+        "sha256": "ff8cfc39a6e856241887bb8b484026c5cdad3d3b554fde3b0576387b9b1c3936",
+        "bytes": 7045120
+      },
+      "C:\\Users\\John Mark Samaniego\\Downloads\\isagiph\\data\\manual\\roads.gpkg": {
+        "sha256": "0a565acb2094c6cb8e546e6fa88064e9b5622e2b6c6c4cee18a63e871330ce8b",
+        "bytes": 808427520
+      }
+    },
+    "note": "Input hashes are provenance aids; public source data may be revised independently of this code release."
+  },
+  "ml_validation_summary": {
+    "target": "E2SFCA-derived accessible beds per 1,000 (log1p target for fitting)",
+    "target_definition": "The target is a modelled spatial-accessibility indicator derived from the project's E2SFCA pipeline; it is not an independent observation of staffed beds, patient utilisation, or clinical outcomes.",
+    "cv": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+    "best_single_model": "ridge",
+    "nested_selection": {
+      "available": true,
+      "method": "Nested GroupKFold: model family selected using training-region folds, then evaluated on outer held-out region folds",
+      "r2": 0.16450382664938268,
+      "r2_log": 0.16450382664938268,
+      "mae_beds": 0.47364744678996373,
+      "rmse_beds": 0.7159980062255673,
+      "bias_beds": -0.08281967268128736,
+      "mae_log": 0.25535527417649273,
+      "selected_model_counts": {
+        "ridge": 353,
+        "random_forest": 1281
+      },
+      "mae_beds_ci95_region_bootstrap": [
+        0.41724101565515653,
+        0.5455649891498863
+      ],
+      "rmse_beds_ci95_region_bootstrap": [
+        0.5958924177439326,
+        0.8347781993370851
+      ]
+    },
+    "baseline_comparison": {
+      "baseline": "mean_baseline",
+      "comparison_model": "nested_model_selection",
+      "comparison_uses_nested_oof": true,
+      "baseline_mae_beds": 0.5524536179138029,
+      "selected_model_mae_beds": 0.47364744678996373,
+      "mae_improvement_beds": 0.07880617112383914,
+      "mae_improvement_ci95_region_bootstrap": [
+        0.046860531760300514,
+        0.11802333562048113
+      ],
+      "interpretation": "Positive improvement means lower held-out MAE than the baseline. The primary comparison uses nested cross-fitted predictions when available; the confidence interval resamples whole regions when at least two regions are available."
+    },
+    "prediction_band": {
+      "level": 0.9,
+      "empirical_coverage_on_outer_heldout_rows": 0.9583843329253366,
+      "empirical_coverage": 0.9583843329253366,
+      "n_outer_heldout_rows_with_interval": 1634,
+      "below_interval": 22,
+      "above_interval": 46,
+      "region_coverage_min": 0.8709677419354839,
+      "region_coverage_max": 1.0,
+      "median_width_beds_per_1000": 2.2955503811119415,
+      "fold_calibration": [
+        {
+          "fold": 1,
+          "selected_model": "random_forest",
+          "n_inner_calibration_rows": 1308,
+          "n_inner_regions": 13,
+          "halfwidth_log": 0.630798106101442
+        },
+        {
+          "fold": 2,
+          "selected_model": "random_forest",
+          "n_inner_calibration_rows": 1322,
+          "n_inner_regions": 14,
+          "halfwidth_log": 0.623647228336305
+        },
+        {
+          "fold": 3,
+          "selected_model": "random_forest",
+          "n_inner_calibration_rows": 1314,
+          "n_inner_regions": 14,
+          "halfwidth_log": 0.6857994719308944
+        },
+        {
+          "fold": 4,
+          "selected_model": "random_forest",
+          "n_inner_calibration_rows": 1311,
+          "n_inner_regions": 14,
+          "halfwidth_log": 0.6222894117683024
+        },
+        {
+          "fold": 5,
+          "selected_model": "ridge",
+          "n_inner_calibration_rows": 1281,
+          "n_inner_regions": 13,
+          "halfwidth_log": 0.6874469919157947
+        }
+      ],
+      "calibration_scope": "inner OOF residuals restricted to each outer training fold; held-out outer rows used only for coverage audit",
+      "method": "Fold-specific empirical residual band: calibration width is computed inside each outer training fold from inner OOF residuals, using the row-wise maximum absolute error across candidate models; evaluated on outer held-out rows.",
+      "formal_guarantee": false,
+      "limitation": "Bands use training-fold inner out-of-fold residuals and are evaluated only on the corresponding outer held-out rows, so each row's own outcome is not used to set its width. They are empirical spatial-validation bands, not a formal distribution-free conformal guarantee; geographic dependence, region heterogeneity, model selection, and limited regional sample size may affect coverage."
+    }
+  }
+}

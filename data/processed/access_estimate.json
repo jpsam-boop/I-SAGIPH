@@ -1,0 +1,22 @@
+{
+  "estimate_type": "model-derived population-weighted hospital access estimate",
+  "facility_scope": "licensed hospitals and included infirmaries in the analysis facility table",
+  "threshold_minutes": 30,
+  "population_total": 108451695,
+  "population_within_threshold": 89688824,
+  "population_outside_threshold": 18762871,
+  "share_within_threshold": 0.8269932909056011,
+  "share_outside_threshold": 0.17300670909439883,
+  "road_network_population_share": 0.9171171628153919,
+  "transport_assumptions": {
+    "fallback_effective_speed_kmh": 15.0,
+    "straight_line_circuity": 1.4,
+    "road_access_egress_speed_kmh": 15.0,
+    "road_class_speeds_kmh": "src/isagiph/roadtimes.py DEFAULT_SPEEDS"
+  },
+  "interpretation": "This is an estimate under the configured transport assumptions, population allocation and licensed hospital/infirmary inventory. It estimates the number of residents modeled as outside the 30-minute hospital threshold; it is not a count of patients who failed to obtain care. Where the supplied DOH reference figure is available, compare it with this estimate as an external check after the travel-time calculation.",
+  "reference_comparison": {
+    "role": "external comparison after estimation",
+    "description": "Compare the modeled population beyond 30 minutes from a hospital with the supplied DOH reference figure, where definitions and geographic scope align."
+  }
+}

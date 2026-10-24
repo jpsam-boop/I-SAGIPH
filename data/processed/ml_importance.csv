@@ -1,0 +1,7 @@
+feature,label,linear_coef_std,rf_importance,rf_importance_std,importance_method
+log_density,Population density (log),0.062363899540904655,0.08360345589245766,0.045976845073167835,held-out permutation importance averaged across region-blocked folds
+log_population,Population (log),0.05062620554281747,0.07813367708073025,0.06636005314473054,held-out permutation importance averaged across region-blocked folds
+poverty_incidence,Poverty incidence,-0.08284836641230853,0.060810715589724305,0.062139871092262704,held-out permutation importance averaged across region-blocked folds
+pct_age_0_4,% aged 0–4,-0.05064140083512527,0.03650129551603637,0.04513231896676304,held-out permutation importance averaged across region-blocked folds
+pct_age_60_plus,% aged 60+,-0.03595267286355345,0.02365671701826979,0.04356740543288488,held-out permutation importance averaged across region-blocked folds
+gida_share,GIDA share of barangays,-0.0250358805189836,0.014338736080916218,0.006354335847886775,held-out permutation importance averaged across region-blocked folds

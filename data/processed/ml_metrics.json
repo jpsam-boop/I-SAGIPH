@@ -1,0 +1,824 @@
+{
+  "target": "E2SFCA-derived accessible beds per 1,000 (log1p target for fitting)",
+  "target_definition": "The target is a modelled spatial-accessibility indicator derived from the project's E2SFCA pipeline; it is not an independent observation of staffed beds, patient utilisation, or clinical outcomes.",
+  "n": 1634,
+  "n_regions": 17,
+  "grouping_field": "region",
+  "cv": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+  "cv_n_splits": 5,
+  "models": {
+    "mean_baseline": {
+      "r2": -0.031346322866878884,
+      "r2_log": -0.031346322866878884,
+      "mae_beds": 0.5524536179138029,
+      "rmse_beds": 0.7714380051016692,
+      "bias_beds": -0.12206432317270122,
+      "mae_log": 0.3019402730419753,
+      "name": "Mean baseline",
+      "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+      "n": 1634,
+      "mae_beds_ci95_region_bootstrap": [
+        0.503321943762661,
+        0.6197263016282609
+      ],
+      "rmse_beds_ci95_region_bootstrap": [
+        0.6548245538523726,
+        0.8916880138094242
+      ],
+      "bias_beds_ci95_region_bootstrap": [
+        -0.24159266183853542,
+        -0.008412486540706424
+      ]
+    },
+    "linear": {
+      "r2": 0.16700229426323765,
+      "r2_log": 0.16700229426323765,
+      "mae_beds": 0.47165142489259027,
+      "rmse_beds": 0.711631634650309,
+      "bias_beds": -0.11072366499375048,
+      "mae_log": 0.25609501470918244,
+      "name": "Linear regression",
+      "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+      "n": 1634,
+      "mae_beds_ci95_region_bootstrap": [
+        0.4221952036796756,
+        0.5411956085462216
+      ],
+      "rmse_beds_ci95_region_bootstrap": [
+        0.590831453674387,
+        0.8237290067963334
+      ],
+      "bias_beds_ci95_region_bootstrap": [
+        -0.23259298635356085,
+        0.012620501664314525
+      ]
+    },
+    "ridge": {
+      "r2": 0.16720032656938955,
+      "r2_log": 0.16720032656938955,
+      "mae_beds": 0.47163301976490396,
+      "rmse_beds": 0.7116162930823003,
+      "bias_beds": -0.11074236426374579,
+      "mae_log": 0.2560724843780273,
+      "name": "Ridge regression",
+      "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+      "n": 1634,
+      "mae_beds_ci95_region_bootstrap": [
+        0.42213061153720727,
+        0.5411697372690585
+      ],
+      "rmse_beds_ci95_region_bootstrap": [
+        0.5907941219269014,
+        0.8237572270208465
+      ],
+      "bias_beds_ci95_region_bootstrap": [
+        -0.23255435200378108,
+        0.01254273438906399
+      ]
+    },
+    "random_forest": {
+      "r2": 0.15855237019120694,
+      "r2_log": 0.15855237019120694,
+      "mae_beds": 0.47416721751950425,
+      "rmse_beds": 0.7149402781951161,
+      "bias_beds": -0.05779008046952991,
+      "mae_log": 0.2559134782325154,
+      "name": "Random forest",
+      "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+      "n": 1634,
+      "mae_beds_ci95_region_bootstrap": [
+        0.41616785802570055,
+        0.5486929338678649
+      ],
+      "rmse_beds_ci95_region_bootstrap": [
+        0.5823520186472515,
+        0.8444477725802084
+      ],
+      "bias_beds_ci95_region_bootstrap": [
+        -0.18790392075553752,
+        0.05099075043236828
+      ]
+    },
+    "gradient_boosting": {
+      "r2": 0.02098675745133116,
+      "r2_log": 0.02098675745133116,
+      "mae_beds": 0.509864933781122,
+      "rmse_beds": 0.7588747390584182,
+      "bias_beds": -0.05265514232102445,
+      "mae_log": 0.2739455687496693,
+      "name": "Gradient boosting",
+      "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+      "n": 1634,
+      "mae_beds_ci95_region_bootstrap": [
+        0.45524453852986496,
+        0.5794533241361138
+      ],
+      "rmse_beds_ci95_region_bootstrap": [
+        0.6269516011368369,
+        0.8858449713191111
+      ],
+      "bias_beds_ci95_region_bootstrap": [
+        -0.17291148817360366,
+        0.05418028585761433
+      ]
+    }
+  },
+  "best": "ridge",
+  "best_selection_metric": "highest pooled outer-CV R\u00b2 on log1p(target); nested CV separately estimates selection-procedure performance",
+  "nested_selection": {
+    "available": true,
+    "method": "Nested GroupKFold: model family selected using training-region folds, then evaluated on outer held-out region folds",
+    "r2": 0.16450382664938268,
+    "r2_log": 0.16450382664938268,
+    "mae_beds": 0.47364744678996373,
+    "rmse_beds": 0.7159980062255673,
+    "bias_beds": -0.08281967268128736,
+    "mae_log": 0.25535527417649273,
+    "selected_model_counts": {
+      "ridge": 353,
+      "random_forest": 1281
+    },
+    "mae_beds_ci95_region_bootstrap": [
+      0.41724101565515653,
+      0.5455649891498863
+    ],
+    "rmse_beds_ci95_region_bootstrap": [
+      0.5958924177439326,
+      0.8347781993370851
+    ]
+  },
+  "baseline_comparison": {
+    "baseline": "mean_baseline",
+    "comparison_model": "nested_model_selection",
+    "comparison_uses_nested_oof": true,
+    "baseline_mae_beds": 0.5524536179138029,
+    "selected_model_mae_beds": 0.47364744678996373,
+    "mae_improvement_beds": 0.07880617112383914,
+    "mae_improvement_ci95_region_bootstrap": [
+      0.046860531760300514,
+      0.11802333562048113
+    ],
+    "interpretation": "Positive improvement means lower held-out MAE than the baseline. The primary comparison uses nested cross-fitted predictions when available; the confidence interval resamples whole regions when at least two regions are available."
+  },
+  "preprocessing": {
+    "imputation": "Median imputation is fitted independently inside each training fold; no full-data median is used during evaluation.",
+    "scaling": "StandardScaler is fitted inside each training fold for linear and Ridge regression.",
+    "feature_columns": [
+      "poverty_incidence",
+      "gida_share",
+      "pct_age_0_4",
+      "pct_age_60_plus",
+      "log_density",
+      "log_population"
+    ],
+    "feature_missing_fraction": {
+      "poverty_incidence": 0.0,
+      "gida_share": 0.0,
+      "pct_age_0_4": 0.0,
+      "pct_age_60_plus": 0.0,
+      "log_density": 0.0,
+      "log_population": 0.0
+    },
+    "features_entirely_missing_dropped": []
+  },
+  "feature_importance_method": "Random-forest permutation importance on held-out folds (scoring=R\u00b2 on log1p target; 5 repeats per fold); standardised linear coefficients averaged across folds.",
+  "interval_method": "Fold-specific empirical residual band: calibration width is computed inside each outer training fold from inner OOF residuals, using the row-wise maximum absolute error across candidate models; evaluated on outer held-out rows.",
+  "model_parameters": {
+    "outer_cv_splits": 5,
+    "nested_cv_splits": 3,
+    "interval_alpha": 0.1,
+    "bootstrap_repeats": 200,
+    "permutation_repeats": 5,
+    "ridge_alpha": 1.0,
+    "random_forest": {
+      "n_estimators": 300,
+      "min_samples_leaf": 5,
+      "n_jobs": 1
+    },
+    "gradient_boosting": {
+      "max_iter": 300,
+      "learning_rate": 0.05,
+      "min_samples_leaf": 20,
+      "l2_regularization": 1.0
+    }
+  },
+  "interval_formal_conformal_guarantee": false,
+  "interval_limitation": "Bands use training-fold inner out-of-fold residuals and are evaluated only on the corresponding outer held-out rows, so each row's own outcome is not used to set its width. They are empirical spatial-validation bands, not a formal distribution-free conformal guarantee; geographic dependence, region heterogeneity, model selection, and limited regional sample size may affect coverage.",
+  "conformal": {
+    "level": 0.9,
+    "empirical_coverage_on_outer_heldout_rows": 0.9583843329253366,
+    "empirical_coverage": 0.9583843329253366,
+    "n_outer_heldout_rows_with_interval": 1634,
+    "below_interval": 22,
+    "above_interval": 46,
+    "region_coverage_min": 0.8709677419354839,
+    "region_coverage_max": 1.0,
+    "median_width_beds_per_1000": 2.2955503811119415,
+    "fold_calibration": [
+      {
+        "fold": 1,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1308,
+        "n_inner_regions": 13,
+        "halfwidth_log": 0.630798106101442
+      },
+      {
+        "fold": 2,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1322,
+        "n_inner_regions": 14,
+        "halfwidth_log": 0.623647228336305
+      },
+      {
+        "fold": 3,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1314,
+        "n_inner_regions": 14,
+        "halfwidth_log": 0.6857994719308944
+      },
+      {
+        "fold": 4,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1311,
+        "n_inner_regions": 14,
+        "halfwidth_log": 0.6222894117683024
+      },
+      {
+        "fold": 5,
+        "selected_model": "ridge",
+        "n_inner_calibration_rows": 1281,
+        "n_inner_regions": 13,
+        "halfwidth_log": 0.6874469919157947
+      }
+    ],
+    "calibration_scope": "inner OOF residuals restricted to each outer training fold; held-out outer rows used only for coverage audit",
+    "method": "Fold-specific empirical residual band: calibration width is computed inside each outer training fold from inner OOF residuals, using the row-wise maximum absolute error across candidate models; evaluated on outer held-out rows.",
+    "formal_guarantee": false,
+    "limitation": "Bands use training-fold inner out-of-fold residuals and are evaluated only on the corresponding outer held-out rows, so each row's own outcome is not used to set its width. They are empirical spatial-validation bands, not a formal distribution-free conformal guarantee; geographic dependence, region heterogeneity, model selection, and limited regional sample size may affect coverage."
+  },
+  "prediction_band": {
+    "level": 0.9,
+    "empirical_coverage_on_outer_heldout_rows": 0.9583843329253366,
+    "empirical_coverage": 0.9583843329253366,
+    "n_outer_heldout_rows_with_interval": 1634,
+    "below_interval": 22,
+    "above_interval": 46,
+    "region_coverage_min": 0.8709677419354839,
+    "region_coverage_max": 1.0,
+    "median_width_beds_per_1000": 2.2955503811119415,
+    "fold_calibration": [
+      {
+        "fold": 1,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1308,
+        "n_inner_regions": 13,
+        "halfwidth_log": 0.630798106101442
+      },
+      {
+        "fold": 2,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1322,
+        "n_inner_regions": 14,
+        "halfwidth_log": 0.623647228336305
+      },
+      {
+        "fold": 3,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1314,
+        "n_inner_regions": 14,
+        "halfwidth_log": 0.6857994719308944
+      },
+      {
+        "fold": 4,
+        "selected_model": "random_forest",
+        "n_inner_calibration_rows": 1311,
+        "n_inner_regions": 14,
+        "halfwidth_log": 0.6222894117683024
+      },
+      {
+        "fold": 5,
+        "selected_model": "ridge",
+        "n_inner_calibration_rows": 1281,
+        "n_inner_regions": 13,
+        "halfwidth_log": 0.6874469919157947
+      }
+    ],
+    "calibration_scope": "inner OOF residuals restricted to each outer training fold; held-out outer rows used only for coverage audit",
+    "method": "Fold-specific empirical residual band: calibration width is computed inside each outer training fold from inner OOF residuals, using the row-wise maximum absolute error across candidate models; evaluated on outer held-out rows.",
+    "formal_guarantee": false,
+    "limitation": "Bands use training-fold inner out-of-fold residuals and are evaluated only on the corresponding outer held-out rows, so each row's own outcome is not used to set its width. They are empirical spatial-validation bands, not a formal distribution-free conformal guarantee; geographic dependence, region heterogeneity, model selection, and limited regional sample size may affect coverage."
+  },
+  "residual_moran": {
+    "I": 0.43235012661132743,
+    "p": 0.002,
+    "residual_scale": "log1p(beds per 1,000)"
+  },
+  "group_performance": [
+    {
+      "region": "Region I (Ilocos Region)",
+      "n": 125,
+      "r2": 0.3064334924442468,
+      "r2_log": 0.3064334924442468,
+      "mae_beds": 0.3959164899288653,
+      "rmse_beds": 0.5146559204064317,
+      "bias_beds": -0.18222095649119713,
+      "mae_log": 0.20225739006798946
+    },
+    {
+      "region": "Region II (Cagayan Valley)",
+      "n": 93,
+      "r2": -0.16367099359455217,
+      "r2_log": -0.16367099359455217,
+      "mae_beds": 0.821640341362003,
+      "rmse_beds": 1.2927405298711938,
+      "bias_beds": -0.5249863741802131,
+      "mae_log": 0.36052176670425384
+    },
+    {
+      "region": "Region III (Central Luzon)",
+      "n": 130,
+      "r2": 0.360934326521978,
+      "r2_log": 0.360934326521978,
+      "mae_beds": 0.27962528897596317,
+      "rmse_beds": 0.37072645554608513,
+      "bias_beds": 4.905117200666613e-06,
+      "mae_log": 0.14405144964554298
+    },
+    {
+      "region": "Region IV-A (Calabarzon)",
+      "n": 142,
+      "r2": -0.14012451095350897,
+      "r2_log": -0.14012451095350897,
+      "mae_beds": 0.4442035828119899,
+      "rmse_beds": 0.5207357862511494,
+      "bias_beds": 0.39362685417424775,
+      "mae_log": 0.24157462863552936
+    },
+    {
+      "region": "Region V (Bicol Region)",
+      "n": 114,
+      "r2": 0.1420061437569874,
+      "r2_log": 0.1420061437569874,
+      "mae_beds": 0.3779480246994905,
+      "rmse_beds": 0.47435165066158763,
+      "bias_beds": -0.17023312445784727,
+      "mae_log": 0.22334120439255936
+    },
+    {
+      "region": "Region VI (Western Visayas)",
+      "n": 133,
+      "r2": 0.1519644558517983,
+      "r2_log": 0.1519644558517983,
+      "mae_beds": 0.48707485900727515,
+      "rmse_beds": 0.6176932282512102,
+      "bias_beds": 0.14537237216470186,
+      "mae_log": 0.26811096784538724
+    },
+    {
+      "region": "Region VII (Central Visayas)",
+      "n": 132,
+      "r2": 0.015665210510611982,
+      "r2_log": 0.015665210510611982,
+      "mae_beds": 0.6556684001788555,
+      "rmse_beds": 0.9826621373564612,
+      "bias_beds": 0.06750025695433425,
+      "mae_log": 0.34554287576480697
+    },
+    {
+      "region": "Region VIII (Eastern Visayas)",
+      "n": 143,
+      "r2": 0.19609506879625216,
+      "r2_log": 0.19609506879625216,
+      "mae_beds": 0.40325176660059275,
+      "rmse_beds": 0.5405522444290278,
+      "bias_beds": -0.13135156694498026,
+      "mae_log": 0.2460131901587003
+    },
+    {
+      "region": "Region IX (Zamboanga Peninsula)",
+      "n": 72,
+      "r2": 0.1567371400265989,
+      "r2_log": 0.1567371400265989,
+      "mae_beds": 0.3382493480228687,
+      "rmse_beds": 0.4547408119731803,
+      "bias_beds": 0.09021164129734377,
+      "mae_log": 0.2282274781904888
+    },
+    {
+      "region": "Region X (Northern Mindanao)",
+      "n": 93,
+      "r2": 0.04872236045011402,
+      "r2_log": 0.04872236045011402,
+      "mae_beds": 0.5317198290850088,
+      "rmse_beds": 0.8410689576606413,
+      "bias_beds": -0.4016975985718214,
+      "mae_log": 0.2713951195510441
+    },
+    {
+      "region": "Region XI (Davao Region)",
+      "n": 49,
+      "r2": 0.43743567599460553,
+      "r2_log": 0.43743567599460553,
+      "mae_beds": 0.4098506742246944,
+      "rmse_beds": 0.5369975243727735,
+      "bias_beds": -0.20879661088870566,
+      "mae_log": 0.21426057913199265
+    },
+    {
+      "region": "Region XII (Soccsksargen)",
+      "n": 49,
+      "r2": 0.08043758655610911,
+      "r2_log": 0.08043758655610911,
+      "mae_beds": 0.6527586197808423,
+      "rmse_beds": 0.8145837399575389,
+      "bias_beds": -0.502941794916407,
+      "mae_log": 0.30727001348716376
+    },
+    {
+      "region": "National Capital Region (NCR)",
+      "n": 17,
+      "r2": -2.1987396953022857,
+      "r2_log": -2.1987396953022857,
+      "mae_beds": 0.15391427229660606,
+      "rmse_beds": 0.1773389081508927,
+      "bias_beds": -0.13165648176038056,
+      "mae_log": 0.06296609546668731
+    },
+    {
+      "region": "Cordillera Administrative Region (CAR)",
+      "n": 77,
+      "r2": 0.11713233486516395,
+      "r2_log": 0.11713233486516395,
+      "mae_beds": 0.5930018046533488,
+      "rmse_beds": 0.8827055495703048,
+      "bias_beds": -0.33510886772928733,
+      "mae_log": 0.3065878211891379
+    },
+    {
+      "region": "Region XIII (Caraga)",
+      "n": 73,
+      "r2": 0.11293798729727889,
+      "r2_log": 0.11293798729727889,
+      "mae_beds": 0.3923193526965015,
+      "rmse_beds": 0.5487264626242904,
+      "bias_beds": -0.12044412382079737,
+      "mae_log": 0.23137263480137424
+    },
+    {
+      "region": "Mimaropa Region",
+      "n": 73,
+      "r2": 0.09898679578906067,
+      "r2_log": 0.09898679578906067,
+      "mae_beds": 0.465633593729912,
+      "rmse_beds": 1.0734013238199775,
+      "bias_beds": -0.08089381123155912,
+      "mae_log": 0.2506970515672311
+    },
+    {
+      "region": "Bangsamoro Autonomous Region In Muslim Mindanao (BARMM)",
+      "n": 119,
+      "r2": -0.36713351497134417,
+      "r2_log": -0.36713351497134417,
+      "mae_beds": 0.5020954368432204,
+      "rmse_beds": 0.6685603913225835,
+      "bias_beds": -0.010078321608985344,
+      "mae_log": 0.3059028223418964
+    }
+  ],
+  "subgroup_performance": [
+    {
+      "dimension": "region",
+      "group": "Region I (Ilocos Region)",
+      "n": 125,
+      "r2_log": 0.3064334924442468,
+      "mae_beds": 0.3959164899288653,
+      "rmse_beds": 0.5146559204064317,
+      "bias_beds": -0.18222095649119713
+    },
+    {
+      "dimension": "region",
+      "group": "Region II (Cagayan Valley)",
+      "n": 93,
+      "r2_log": -0.16367099359455217,
+      "mae_beds": 0.821640341362003,
+      "rmse_beds": 1.2927405298711938,
+      "bias_beds": -0.5249863741802131
+    },
+    {
+      "dimension": "region",
+      "group": "Region III (Central Luzon)",
+      "n": 130,
+      "r2_log": 0.360934326521978,
+      "mae_beds": 0.27962528897596317,
+      "rmse_beds": 0.37072645554608513,
+      "bias_beds": 4.905117200666613e-06
+    },
+    {
+      "dimension": "region",
+      "group": "Region IV-A (Calabarzon)",
+      "n": 142,
+      "r2_log": -0.14012451095350897,
+      "mae_beds": 0.4442035828119899,
+      "rmse_beds": 0.5207357862511494,
+      "bias_beds": 0.39362685417424775
+    },
+    {
+      "dimension": "region",
+      "group": "Region V (Bicol Region)",
+      "n": 114,
+      "r2_log": 0.1420061437569874,
+      "mae_beds": 0.3779480246994905,
+      "rmse_beds": 0.47435165066158763,
+      "bias_beds": -0.17023312445784727
+    },
+    {
+      "dimension": "region",
+      "group": "Region VI (Western Visayas)",
+      "n": 133,
+      "r2_log": 0.1519644558517983,
+      "mae_beds": 0.48707485900727515,
+      "rmse_beds": 0.6176932282512102,
+      "bias_beds": 0.14537237216470186
+    },
+    {
+      "dimension": "region",
+      "group": "Region VII (Central Visayas)",
+      "n": 132,
+      "r2_log": 0.015665210510611982,
+      "mae_beds": 0.6556684001788555,
+      "rmse_beds": 0.9826621373564612,
+      "bias_beds": 0.06750025695433425
+    },
+    {
+      "dimension": "region",
+      "group": "Region VIII (Eastern Visayas)",
+      "n": 143,
+      "r2_log": 0.19609506879625216,
+      "mae_beds": 0.40325176660059275,
+      "rmse_beds": 0.5405522444290278,
+      "bias_beds": -0.13135156694498026
+    },
+    {
+      "dimension": "region",
+      "group": "Region IX (Zamboanga Peninsula)",
+      "n": 72,
+      "r2_log": 0.1567371400265989,
+      "mae_beds": 0.3382493480228687,
+      "rmse_beds": 0.4547408119731803,
+      "bias_beds": 0.09021164129734377
+    },
+    {
+      "dimension": "region",
+      "group": "Region X (Northern Mindanao)",
+      "n": 93,
+      "r2_log": 0.04872236045011402,
+      "mae_beds": 0.5317198290850088,
+      "rmse_beds": 0.8410689576606413,
+      "bias_beds": -0.4016975985718214
+    },
+    {
+      "dimension": "region",
+      "group": "Region XI (Davao Region)",
+      "n": 49,
+      "r2_log": 0.43743567599460553,
+      "mae_beds": 0.4098506742246944,
+      "rmse_beds": 0.5369975243727735,
+      "bias_beds": -0.20879661088870566
+    },
+    {
+      "dimension": "region",
+      "group": "Region XII (Soccsksargen)",
+      "n": 49,
+      "r2_log": 0.08043758655610911,
+      "mae_beds": 0.6527586197808423,
+      "rmse_beds": 0.8145837399575389,
+      "bias_beds": -0.502941794916407
+    },
+    {
+      "dimension": "region",
+      "group": "National Capital Region (NCR)",
+      "n": 17,
+      "r2_log": -2.1987396953022857,
+      "mae_beds": 0.15391427229660606,
+      "rmse_beds": 0.1773389081508927,
+      "bias_beds": -0.13165648176038056
+    },
+    {
+      "dimension": "region",
+      "group": "Cordillera Administrative Region (CAR)",
+      "n": 77,
+      "r2_log": 0.11713233486516395,
+      "mae_beds": 0.5930018046533488,
+      "rmse_beds": 0.8827055495703048,
+      "bias_beds": -0.33510886772928733
+    },
+    {
+      "dimension": "region",
+      "group": "Region XIII (Caraga)",
+      "n": 73,
+      "r2_log": 0.11293798729727889,
+      "mae_beds": 0.3923193526965015,
+      "rmse_beds": 0.5487264626242904,
+      "bias_beds": -0.12044412382079737
+    },
+    {
+      "dimension": "region",
+      "group": "Mimaropa Region",
+      "n": 73,
+      "r2_log": 0.09898679578906067,
+      "mae_beds": 0.465633593729912,
+      "rmse_beds": 1.0734013238199775,
+      "bias_beds": -0.08089381123155912
+    },
+    {
+      "dimension": "region",
+      "group": "Bangsamoro Autonomous Region In Muslim Mindanao (BARMM)",
+      "n": 119,
+      "r2_log": -0.36713351497134417,
+      "mae_beds": 0.5020954368432204,
+      "rmse_beds": 0.6685603913225835,
+      "bias_beds": -0.010078321608985344
+    },
+    {
+      "dimension": "gida_share",
+      "group": "lower or equal to median GIDA share",
+      "n": 817,
+      "r2_log": 0.19892324352591895,
+      "mae_beds": 0.49690363659354114,
+      "rmse_beds": 0.7530452533823894,
+      "bias_beds": -0.09534732192475451,
+      "threshold": 0.0648667601683029
+    },
+    {
+      "dimension": "gida_share",
+      "group": "above median GIDA share",
+      "n": 817,
+      "r2_log": 0.06695116864823003,
+      "mae_beds": 0.45039125698638627,
+      "rmse_beds": 0.6769262413263561,
+      "bias_beds": -0.07029202343782022,
+      "threshold": 0.0648667601683029
+    },
+    {
+      "dimension": "population",
+      "group": "lower or equal to median population",
+      "n": 817,
+      "r2_log": 0.06261513946684338,
+      "mae_beds": 0.5056694033999225,
+      "rmse_beds": 0.8020408139048403,
+      "bias_beds": -0.10420596622966216,
+      "threshold": 36539.5
+    },
+    {
+      "dimension": "population",
+      "group": "above median population",
+      "n": 817,
+      "r2_log": 0.19102055909974036,
+      "mae_beds": 0.44162549018000485,
+      "rmse_beds": 0.6180912737361985,
+      "bias_beds": -0.061433379132912525,
+      "threshold": 36539.5
+    }
+  ],
+  "group_performance_note": "Errors are reported by held-out region; between-region heterogeneity should be examined before national-level claims.",
+  "validation_fold_column": "validation_fold",
+  "prediction_model_column": "model_used",
+  "mean_baseline": {
+    "r2": -0.031346322866878884,
+    "r2_log": -0.031346322866878884,
+    "mae_beds": 0.5524536179138029,
+    "rmse_beds": 0.7714380051016692,
+    "bias_beds": -0.12206432317270122,
+    "mae_log": 0.3019402730419753,
+    "name": "Mean baseline",
+    "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+    "n": 1634,
+    "mae_beds_ci95_region_bootstrap": [
+      0.503321943762661,
+      0.6197263016282609
+    ],
+    "rmse_beds_ci95_region_bootstrap": [
+      0.6548245538523726,
+      0.8916880138094242
+    ],
+    "bias_beds_ci95_region_bootstrap": [
+      -0.24159266183853542,
+      -0.008412486540706424
+    ]
+  },
+  "linear": {
+    "r2": 0.16700229426323765,
+    "r2_log": 0.16700229426323765,
+    "mae_beds": 0.47165142489259027,
+    "rmse_beds": 0.711631634650309,
+    "bias_beds": -0.11072366499375048,
+    "mae_log": 0.25609501470918244,
+    "name": "Linear regression",
+    "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+    "n": 1634,
+    "mae_beds_ci95_region_bootstrap": [
+      0.4221952036796756,
+      0.5411956085462216
+    ],
+    "rmse_beds_ci95_region_bootstrap": [
+      0.590831453674387,
+      0.8237290067963334
+    ],
+    "bias_beds_ci95_region_bootstrap": [
+      -0.23259298635356085,
+      0.012620501664314525
+    ]
+  },
+  "ridge": {
+    "r2": 0.16720032656938955,
+    "r2_log": 0.16720032656938955,
+    "mae_beds": 0.47163301976490396,
+    "rmse_beds": 0.7116162930823003,
+    "bias_beds": -0.11074236426374579,
+    "mae_log": 0.2560724843780273,
+    "name": "Ridge regression",
+    "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+    "n": 1634,
+    "mae_beds_ci95_region_bootstrap": [
+      0.42213061153720727,
+      0.5411697372690585
+    ],
+    "rmse_beds_ci95_region_bootstrap": [
+      0.5907941219269014,
+      0.8237572270208465
+    ],
+    "bias_beds_ci95_region_bootstrap": [
+      -0.23255435200378108,
+      0.01254273438906399
+    ]
+  },
+  "random_forest": {
+    "r2": 0.15855237019120694,
+    "r2_log": 0.15855237019120694,
+    "mae_beds": 0.47416721751950425,
+    "rmse_beds": 0.7149402781951161,
+    "bias_beds": -0.05779008046952991,
+    "mae_log": 0.2559134782325154,
+    "name": "Random forest",
+    "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+    "n": 1634,
+    "mae_beds_ci95_region_bootstrap": [
+      0.41616785802570055,
+      0.5486929338678649
+    ],
+    "rmse_beds_ci95_region_bootstrap": [
+      0.5823520186472515,
+      0.8444477725802084
+    ],
+    "bias_beds_ci95_region_bootstrap": [
+      -0.18790392075553752,
+      0.05099075043236828
+    ]
+  },
+  "gradient_boosting": {
+    "r2": 0.02098675745133116,
+    "r2_log": 0.02098675745133116,
+    "mae_beds": 0.509864933781122,
+    "rmse_beds": 0.7588747390584182,
+    "bias_beds": -0.05265514232102445,
+    "mae_log": 0.2739455687496693,
+    "name": "Gradient boosting",
+    "validation": "GroupKFold grouped by region; entire region groups remain outside each training fold",
+    "n": 1634,
+    "mae_beds_ci95_region_bootstrap": [
+      0.45524453852986496,
+      0.5794533241361138
+    ],
+    "rmse_beds_ci95_region_bootstrap": [
+      0.6269516011368369,
+      0.8858449713191111
+    ],
+    "bias_beds_ci95_region_bootstrap": [
+      -0.17291148817360366,
+      0.05418028585761433
+    ]
+  },
+  "typology": {
+    "k": 5,
+    "silhouette": {
+      "3": 0.2338406866337933,
+      "4": 0.22785310298793862,
+      "5": 0.24323702405958122,
+      "6": 0.18602834119904368,
+      "7": 0.1967983547355165,
+      "8": 0.18542496143563553
+    },
+    "stability_ari": 0.7220529476067902,
+    "features": [
+      "hvs_demographic",
+      "hvs_socioeconomic",
+      "hvs_disease",
+      "hvs_geographic",
+      "hcs_beds",
+      "hcs_coverage",
+      "hcs_primary_care",
+      "hcs_social_protection"
+    ],
+    "feature_missingness_handling": "median imputation before clustering; descriptive typology, not a predictive target"
+  }
+}
