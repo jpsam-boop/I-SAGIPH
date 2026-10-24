@@ -1,0 +1,64 @@
+# Data manifest. `mode: auto` sources are fetched by `python -m isagiph.ingest`.
+# `mode: manual` sources need a human step (request, login, or export); place the
+# file at `file` under data/manual/. After first download, inspect each file and
+# fill in `columns` (left = our standard name, right = the column in the file).
+sources:
+  census_2020_barangay:
+    mode: hdx
+    hdx_id: popn-single-year-age-sex-and-barangay-census-2020
+    file: raw/census2020_barangay.xlsx
+    citation: "Philippine Statistics Authority. (2022). 2020 Census of Population and Housing: Population by single-year age, sex, and barangay [Data set]. Humanitarian Data Exchange."
+    columns: {psgc: TODO, population: TODO}
+  admin_boundaries:
+    mode: hdx
+    hdx_id: cod-ab-phl
+    file: raw/phl_adm_boundaries.zip
+    citation: "OCHA Philippines. (2023). Philippines - Subnational administrative boundaries [Data set]. Humanitarian Data Exchange."
+  osm_health_facilities:
+    mode: hdx
+    hdx_id: hotosm_phl_health_facilities
+    file: raw/hotosm_phl_health_facilities.zip
+    citation: "Humanitarian OpenStreetMap Team. (2025). Philippines health facilities (OpenStreetMap export) [Data set]. Humanitarian Data Exchange."
+  psa_population_density:
+    mode: url
+    url: https://psa.gov.ph/system/files/psy/2022_T1_1.xlsx
+    file: raw/psa_2022_T1_1.xlsx
+    citation: "Philippine Statistics Authority. (2022). Philippine statistical yearbook 2022, Table 1.1 [Data set]."
+  psa_poverty:
+    mode: manual
+    page: https://psa.gov.ph/content/poverty-incidence-all-regions-declined-between-2023-and-2025
+    file: manual/psa_poverty.csv
+    note: "Prefer PSA city/municipal small-area estimates if released; otherwise provincial."
+    columns: {psgc: TODO, poverty_incidence: TODO}
+  doh_nhfr:
+    mode: manual
+    page: https://nhfr.doh.gov.ph/VActivefacilitiesList
+    file: manual/nhfr_facilities.csv
+    columns: {facility_id: TODO, name: TODO, facility_type: TODO, psgc: TODO, lat: TODO, lon: TODO}
+  doh_bed_capacity_efoi:
+    mode: manual
+    page: https://www.foi.gov.ph/en/agencies/doh/
+    file: manual/doh_licensed_hospitals.csv
+    note: "Submit eFOI request early; response can take weeks."
+    columns: {name: TODO, level: TODO, beds: TODO, municipality: TODO, province: TODO}
+  epidemiological:
+    mode: manual
+    page: https://data.mendeley.com/datasets/v98325dpxv/1
+    file: manual/epi_cases.csv
+    columns: {psgc: TODO, cases_tb: TODO, cases_dengue: TODO}
+  ndhs_2022:
+    mode: manual
+    page: https://dhsprogram.com/data/available-datasets.cfm
+    file: manual/ndhs2022_province.csv
+    note: "Requires DHS account approval. Used ONLY for validation, never in the indices."
+    columns: {province: TODO, facility_delivery_rate: TODO}
+  gida_list:
+    mode: manual
+    file: manual/gida_municipalities.csv
+    note: "DOH Geographically Isolated and Disadvantaged Areas list."
+    columns: {psgc: TODO}
+  malasakit_centers:
+    mode: manual
+    file: manual/malasakit_centers.csv
+    note: "List of hospitals hosting Malasakit Centers (R.A. 11463)."
+    columns: {name: TODO, municipality: TODO, province: TODO}

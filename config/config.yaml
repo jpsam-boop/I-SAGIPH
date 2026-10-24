@@ -1,0 +1,116 @@
+# I-SAGIPH central configuration. Every analytical parameter lives here so that
+# results are reproducible and every choice is documented in one place.
+project:
+  seed: 42
+
+paths:
+  raw: data/raw
+  manual: data/manual        # source files; may be an absolute path, e.g. C:/Users/<you>/Downloads/manual
+  interim: data/interim
+  processed: data/processed
+  demo: data/demo
+  reports: reports
+
+# --- Spatial accessibility (E2SFCA) -------------------------------------------
+accessibility:
+  # Fallback travel time when no road-network matrix is supplied:
+  # minutes = straight-line km * circuity / speed * 60
+  fallback_speed_kmh: 15.0 # configurable generalized effective-speed assumption for local/mixed travel where no usable road route exists
+  circuity: 1.4            # straight-line-to-trip-distance factor for fallback estimates
+  d0_minutes:            # catchment size by hospital level
+    level1: 30
+    level2plus: 60
+  coverage_minutes:
+    any_hospital: 30
+    level2plus: 60
+    malasakit: 60
+
+facilities:
+  include_infirmaries: true   # licensed infirmaries count as first-level inpatient beds
+
+roads:                       # road-network route times from a local OSM roads GeoPackage (python -m isagiph.roadtimes)
+  file:                      # optional exact roads filename in data/manual; set this when there are multiple plausible road packages
+  layer:                     # optional exact line-layer name; auto-detects a road-class line layer when blank
+  access_speed_kmh: 15.0     # assumed speed for the short access/egress legs between a barangay/facility and the nearest road
+  speeds_kmh:                # configured road-class speed assumptions (km/h), e.g. primary: 45
+  # road classes that are never driven on (footpaths, steps, ...) are excluded automatically
+
+boundaries:
+  simplify_deg: 0.001        # outline simplification (~110 m); smaller = more detail, bigger map files
+
+benchmarks:
+  beds_per_1000: 1.25    # DOH target of 1 hospital bed per 800 people (PHFDP 2017-2022)
+  goal_2040_per_1000: 4.0  # PHFDP 2020-2040 aspiration: 4 beds per 1,000 by 2040
+
+# --- Composite indices ---------------------------------------------------------
+# Higher value = more of the construct (more vulnerable / more capacity).
+# Indicators missing from the data are skipped (and empty domains dropped).
+# Influenza and leptospirosis rates are loaded for display but not scored: most areas report 'No Data'.
+indicators:
+  hvs:
+    demographic: [pct_age_0_4, pct_age_60_plus]
+    socioeconomic: [poverty_incidence]
+    disease: [rate_tb, rate_pneumonia, rate_hypertension]   # DOH FHSIS 2022, per 100,000 (province/city level)
+    geographic: [gida_share]
+  hcs:
+    beds: [beds_per_1000_all, beds_per_1000_l2plus]
+    coverage: [cov_any_30, cov_l2plus_60]
+    primary_care: [primary_care_per_10k]
+    social_protection: [cov_malasakit_60]
+    # ambulance_per_100k is computed for the dashboard but not scored: the DOH list
+    # covers only 134 free-standing providers, not LGU/hospital ambulances.
+
+# How indicators are combined into the Health Need Index and Hospital Capacity Index:
+#   pca   = factor-analysis weights (PCA, Kaiser criterion, varimax; OECD & JRC, 2008)
+#   equal = equal weights within and across the domains below
+weighting: pca
+
+normalization:
+  method: minmax          # minmax | zscore (zscore is mapped to 0-100 via the normal CDF)
+  winsor: [0.01, 0.99]
+  log_vars: [beds_per_1000_all, beds_per_1000_l2plus, primary_care_per_10k, ambulance_per_100k,
+             rate_tb, rate_pneumonia, rate_hypertension]
+  floor: 10.0             # domain-score floor before the geometric mean; limits the penalty
+                          # from one zero-inflated domain (e.g. licensed primary care)
+
+disease:
+  per: 100000
+  smoothing_group: region # Empirical Bayes prior estimated within each region
+
+# --- Spatial statistics --------------------------------------------------------
+spatial:
+  knn_k: 6               # KNN weights keep island LGUs connected
+  permutations: 999
+  alpha: 0.05            # FDR-adjusted significance level
+  n_regions: 12          # spatially constrained clusters
+
+# --- Robustness and validation -------------------------------------------------
+sensitivity:
+  n_runs: 1000
+  dirichlet_alpha: 10    # concentration around equal weights
+  d0_multipliers: [0.5, 1.0, 1.5]
+  methods: [minmax, zscore]
+  weightings: [pca, equal]   # sampled per run; 'equal' runs use Dirichlet domain weights
+  instability_threshold: 0.2
+
+validation:
+  outcomes: [facility_delivery_rate]   # must NOT be used to build the indices
+  expected_sign: {facility_delivery_rate: -1}
+
+# --- Machine-learning validation and reproducibility --------------------------
+ml:
+  outer_cv_splits: 5         # GroupKFold grouped by region; held-out groups never enter training
+  nested_cv_splits: 3        # training-only grouped folds for model-family selection
+  interval_alpha: 0.10       # empirical 90% residual band (not a formal conformal guarantee)
+  bootstrap_repeats: 200     # region-block bootstrap for error metric intervals
+  permutation_repeats: 5     # held-out permutation importance repeats per outer fold
+  ridge_alpha: 1.0
+  random_forest:
+    n_estimators: 300
+    min_samples_leaf: 5
+    n_jobs: 1                # deterministic, avoids worker oversubscription in CI
+  gradient_boosting:
+    max_iter: 300
+    learning_rate: 0.05
+    min_samples_leaf: 20
+    l2_regularization: 1.0
