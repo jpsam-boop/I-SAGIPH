@@ -6,7 +6,7 @@
 
 I-SAGIPH combines public data on hospitals, population, poverty, and disease to locate cities and municipalities where healthcare need outstrips healthcare capacity. It consolidates the data into three indices: a **Health Need Index (HNI)**, a **Hospital Capacity Index (HCI)** built on E2SFCA spatial accessibility, and the **Healthcare Gap Index (HGI)**. Indicator weights come from factor analysis (Wang & Luo, 2005; OECD & JRC, 2008). It then tests where gaps cluster, checks how robust each result is, and validates the index against outcomes it was not built from. Everything is served through an interactive Streamlit map and citizen-facing navigation page.
 
-## Quick start (5 minutes, no downloads)
+## Quick start 
 
 ```bash
 git clone <repo-url> && cd isagiph
@@ -37,12 +37,6 @@ Optional extras:
 - Road travel times: put an OpenStreetMap roads GeoPackage in the source-data folder, then run `python -m isagiph.roadtimes --all` (or one region by name; `--list` shows names) and re-run the pipeline. No internet needed.
 - `python -m isagiph.community` adds labelled sample posts for demos; `python -m isagiph.community --remove-samples` deletes them.
 
-## Citizen-facing service navigation
-
-The new **Para sa Mamamayan** page is designed for residents rather than analysts. It reuses the project facility directory to search by location and services, links to official DOH Malasakit Center directories and other public program information, provides a non-universal visit-preparation checklist, and accepts optional anonymous reports of access barriers. These reports are unverified local signals; they are not official complaints, emergency alerts, or automatically delivered to government offices. Read `docs/citizen_feature.md` for the page's data limitations and deployment considerations.
-
-The facility directory is not live availability information. The build pipeline notes that Malasakit Center matching uses a PCSO list dated November 2022, so the page asks residents to confirm current status through the official DOH directories before travelling.
-
 ## Pipeline
 
 ```
@@ -72,25 +66,6 @@ ingest -> clean (PSGC harmonisation, facility de-dup, schema validation)
 | `app/app.py`, `app/common.py`, `app/views/`, `app/assets/`, `.streamlit/config.toml` | Multipage Streamlit dashboard. Explore: Map, Facility Finder, LGU Profile, Priority List, ISAGIP Simulator. Analyze: Regression Explorer, Health Relationships (Relationships and Equity & Fairness internal tabs), Crisis Impact. Mamamayan: Para sa Mamamayan (facility search, official assistance links, visit checklist, access-barrier reports, facility reports, and health announcements). Learn: How to Read, Data & Methods, About |
 | `tests/` | Unit and smoke tests (run in CI) |
 | `docs/` | Code guide, statistical models, methodology, references, data card, demo script |
-
-## How this repository maps to the judging criteria
-
-| Criterion | Where it is addressed |
-|---|---|
-| Project rationale & design (20%) | `docs/methodology.md`; data provenance and ethics in `docs/data_card.md` |
-| Code repository & reproducibility (20%) | Modular `src/` package, pinned dependencies, `environment.yml`, `Makefile`, config-driven parameters, fixed seed, checksummed downloads, CI |
-| Technical rigor & innovation (15%) | E2SFCA, factor-analysis weighting of need (including DOH disease rates) and capacity, geometric-mean composites, LISA/Gi* with FDR, Monte Carlo uncertainty, spatially cross-validated ML |
-| Execution & impact (25%) | `reports/findings.md`: significance tests, bottleneck typology, priority list with uncertainty, LGU-ready CSV export |
-| Demonstration video (15%) | `docs/demo_video_script.md` (3-minute script) |
-| Sources & citations (5%) | `docs/references.md` |
-
-## Limitations
-
-Results depend on public data that may be outdated, incomplete, or from different years. Bed counts are not the same as staffed beds or actual service capacity. Straight-line travel times ignore water crossings. Aggregating to LGUs hides inequality within each LGU (the modifiable areal unit problem). Results should prompt verification with provincial health offices, not replace it.
-
-
-
-**Citizen navigation:** Community facility reports, health announcements, and access-barrier reporting are grouped as tabs inside **Para sa Mamamayan**. Their underlying reporting and announcement workflows remain available there.
 
 ## Interactive analytical workspaces
 
