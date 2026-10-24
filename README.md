@@ -77,11 +77,3 @@ The Analyze navigation contains exactly three analytical workspaces. Regression 
 
 These three workspaces live under **Analyze**. The former Equity and Data Models entries are no longer separate navigation items; Equity analysis is integrated into Health Relationships. Run `python -m isagiph.pipeline` for real inputs or `python -m isagiph.pipeline --demo` for synthetic examples before launching Streamlit. Crisis Impact needs processed `points.csv` and `facilities.csv`; it reconstructs travel-time inputs using the pipeline's configured method. Re-run the pipeline after changing data, and reload the page so Streamlit refreshes file-backed caches.
 
-
-## Analytical rigor updates
-
-- Regression Explorer headline metrics are computed on all valid LGUs in the chosen geographic scope; error-focus filters only control which cases are inspected.
-- Regression prediction bands are calibrated using inner cross-fitted residuals from each outer training fold and evaluated on outer-held-out rows. They are empirical diagnostics, not formal conformal guarantees; if nested spatial validation is unavailable, intervals are omitted.
-- Health Relationships includes an optional covariate-adjusted standardized association with region-cluster robust inference only when at least eight region clusters are available. This remains observational, not causal. Synthetic facility-delivery outcomes are marked as demo-only and are excluded in real-data mode.
-- Crisis Impact reports route-record availability and licensed-bed totals separately from modeled threshold reach. Missing route records can reflect the finite search matrix and must not automatically be interpreted as observed lack of care.
-- These safeguards improve reporting and validation discipline but do not replace independent validation against observed travel times, staffed capacity, service availability, utilisation or health outcomes.
