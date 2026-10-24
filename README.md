@@ -108,7 +108,7 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-If a `requirements-lock.txt` file is present, `pip install -r requirements-lock.txt` installs the exact versions the results were produced with.
+`pip install -r requirements-lock.txt` installs the exact versions the results were produced with.
 
 ---
 
