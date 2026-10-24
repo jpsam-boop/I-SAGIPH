@@ -1,0 +1,15 @@
+[theme]
+base = "light"
+primaryColor = "#002157"
+backgroundColor = "#FBF8F1"
+secondaryBackgroundColor = "#E8EEF7"
+textColor = "#16213A"
+
+[client]
+toolbarMode = "minimal"
+
+[server]
+headless = true          # no email prompt; open the printed Local URL
+
+[browser]
+gatherUsageStats = false
