@@ -1,0 +1,121 @@
+Metadata-Version: 2.4
+Name: isagiph
+Version: 0.1.0
+Summary: Interactive Software for Analyzing Geographic Inadequacy in Philippine Healthcare
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# I-SAGIPH
+
+**Interactive Software for Analyzing Geographic Inadequacy in Philippine Healthcare**
+
+> The Python package and conda environment keep their original name, `isagiph`, so all commands below are unchanged.
+
+I-SAGIPH combines public data on hospitals, population, poverty, and disease to locate cities and municipalities where healthcare need outstrips healthcare capacity. It consolidates the data into three indices: a **Health Need Index (HNI)**, a **Hospital Capacity Index (HCI)** built on E2SFCA spatial accessibility, and the **Healthcare Gap Index (HGI)**. Indicator weights come from factor analysis (Wang & Luo, 2005; OECD & JRC, 2008). It then tests where gaps cluster, checks how robust each result is, and validates the index against outcomes it was not built from. Everything is served through an interactive Streamlit map and citizen-facing navigation page.
+
+## Quick start (5 minutes, no downloads)
+
+```bash
+git clone <repo-url> && cd isagiph
+conda env create -f environment.yml && conda activate isagiph   # or: pip install -r requirements.txt && pip install -e .
+python -m isagiph.pipeline --demo      # synthetic data, ~1 min
+pytest -q                              # unit tests
+python -m streamlit run app/app.py               # dashboard at http://localhost:8501
+```
+
+The `--demo` flag uses a **synthetic** dataset (`src/isagiph/synthetic.py`) in the same schema as the real data, so the whole pipeline can be tested and demonstrated before every source arrives. Demo numbers are not findings; the dashboard and report label them clearly.
+
+## Running on real data
+
+1. Copy the source files into `data/manual/` (or point `paths.manual` in `config/config.yaml` at the folder where they are) (file names may differ slightly; `build_real.py` finds them by pattern):
+   `phl_admin_boundaries.xlsx`, `4_Household…2020…CPH….xlsx`, `2_2023_SAE_with_PSGC….xlsx`, the 2023 GIDA PDF,
+   `Hospital_list_as_of….xlsx`, `List_of_Infirmary….xlsx`, `List_of_Primary_Care_Facilities….xlsx`,
+   `Free-standing_Ambulance….xlsx`, `PCSO_Malasakit_Centers….pdf`, and `health_facilities.gpkg` (HOT OSM). For road-network routing, also place the Philippines **roads** GeoPackage in `data/manual/`. If more than one plausible roads GeoPackage exists, set `roads.file` (and optionally `roads.layer`) in `config/config.yaml` to the exact roads source. `health_facilities.gpkg` is for matching facility coordinates and is deliberately excluded from road graph selection. Travel speeds are explicit transport assumptions intended to approximate mixed local travel conditions. The modeled estimate of residents beyond 30 minutes from a hospital is reported separately from the supplied DOH reference; PHFDP 30-minute context figures refer to primary-care centres and should not be interpreted as hospital-specific measurements.
+   For true city/municipality outlines on the map, also put the COD-AB boundary download (shapefile, geodatabase, GeoPackage or GeoJSON from HDX's *Philippines – Subnational Administrative Boundaries*) in `data/manual/`.
+2. `python -m isagiph.build_real` links everything to COD-AB city/municipality codes and writes
+   `data/interim/` plus `reports/data_quality.md` (every match rate and every unlinked record).
+3. *(Recommended)* Road-network travel times as `data/interim/travel_times.csv` (see `docs/methodology.md`);
+   otherwise a documented straight-line fallback is used.
+4. `python -m isagiph.pipeline` writes `data/processed/` and `reports/findings.md`.
+5. `python -m streamlit run app/app.py --server.headless true`.
+
+Optional extras:
+
+- Road travel times: put an OpenStreetMap roads GeoPackage in the source-data folder, then run `python -m isagiph.roadtimes --all` (or one region by name; `--list` shows names) and re-run the pipeline. No internet needed.
+- `python -m isagiph.community` adds labelled sample posts for demos; `python -m isagiph.community --remove-samples` deletes them.
+
+## Citizen-facing service navigation
+
+The new **Para sa Mamamayan** page is designed for residents rather than analysts. It reuses the project facility directory to search by location and services, links to official DOH Malasakit Center directories and other public program information, provides a non-universal visit-preparation checklist, and accepts optional anonymous reports of access barriers. These reports are unverified local signals; they are not official complaints, emergency alerts, or automatically delivered to government offices. Read `docs/citizen_feature.md` for the page's data limitations and deployment considerations.
+
+The facility directory is not live availability information. The build pipeline notes that Malasakit Center matching uses a PCSO list dated November 2022, so the page asks residents to confirm current status through the official DOH directories before travelling.
+
+## Pipeline
+
+```
+ingest -> clean (PSGC harmonisation, facility de-dup, schema validation)
+       -> accessibility (travel times, E2SFCA, coverage)
+       -> indicators (age shares, DOH disease rates, primary-care density)
+       -> indices (HVS, HCS, Gap Index, bivariate class, bed gap)
+       -> spatial statistics (Moran's I, LISA, Gi*, FDR, constrained clustering)
+       -> sensitivity (Monte Carlo) -> validation -> report + dashboard
+```
+
+## Repository layout
+
+| Path | Purpose |
+|---|---|
+| `config/config.yaml` | Every analytical parameter, with comments |
+| `config/sources.yaml` | Data manifest: URLs, citations, column mappings |
+| `src/isagiph/ingest.py` | Downloads with checksums; manual-source checklist |
+| `src/isagiph/build_real.py`, `facilities.py`, `schema.py` | Team's source files to validated standard tables |
+| `src/isagiph/accessibility.py` | Travel times, E2SFCA, coverage |
+| `src/isagiph/smoothing.py` | Empirical Bayes rates |
+| `src/isagiph/indices.py` | HVS, HCS, Gap Index, bed gap |
+| `src/isagiph/spatial_stats.py` | Moran's I, LISA, Gi*, FDR, regionalisation |
+| `src/isagiph/sensitivity.py`, `validation.py` | Robustness and external validity |
+| `src/isagiph/ml.py`, `equity.py`, `simulate.py`, `community.py` | Machine learning, equity statistics, what-if simulator, community storage |
+| `src/isagiph/report.py`, `pipeline.py` | Findings report and orchestration |
+| `app/app.py`, `app/common.py`, `app/views/`, `app/assets/`, `.streamlit/config.toml` | Multipage Streamlit dashboard. Explore: Map, Facility Finder, LGU Profile, Priority List, ISAGIP Simulator. Analyze: Regression Explorer, Health Relationships (Relationships and Equity & Fairness internal tabs), Crisis Impact. Mamamayan: Para sa Mamamayan (facility search, official assistance links, visit checklist, access-barrier reports, facility reports, and health announcements). Learn: How to Read, Data & Methods, About |
+| `tests/` | Unit and smoke tests (run in CI) |
+| `docs/` | Code guide, statistical models, methodology, references, data card, demo script |
+
+## How this repository maps to the judging criteria
+
+| Criterion | Where it is addressed |
+|---|---|
+| Project rationale & design (20%) | `docs/methodology.md`; data provenance and ethics in `docs/data_card.md` |
+| Code repository & reproducibility (20%) | Modular `src/` package, pinned dependencies, `environment.yml`, `Makefile`, config-driven parameters, fixed seed, checksummed downloads, CI |
+| Technical rigor & innovation (15%) | E2SFCA, factor-analysis weighting of need (including DOH disease rates) and capacity, geometric-mean composites, LISA/Gi* with FDR, Monte Carlo uncertainty, spatially cross-validated ML |
+| Execution & impact (25%) | `reports/findings.md`: significance tests, bottleneck typology, priority list with uncertainty, LGU-ready CSV export |
+| Demonstration video (15%) | `docs/demo_video_script.md` (3-minute script) |
+| Sources & citations (5%) | `docs/references.md` |
+
+## Limitations
+
+Results depend on public data that may be outdated, incomplete, or from different years. Bed counts are not the same as staffed beds or actual service capacity. Straight-line travel times ignore water crossings. Aggregating to LGUs hides inequality within each LGU (the modifiable areal unit problem). Results should prompt verification with provincial health offices, not replace it.
+
+
+
+**Citizen navigation:** Community facility reports, health announcements, and access-barrier reporting are grouped as tabs inside **Para sa Mamamayan**. Their underlying reporting and announcement workflows remain available there.
+
+## Interactive analytical workspaces
+
+The Analyze navigation contains exactly three analytical workspaces. Regression Explorer replaces the former Data Models page, Health Relationships combines the former relationship and equity analyses, and Crisis Impact moves the existing disruption analysis into Analyze:
+
+- **Regression Explorer** (`insights`) replaces the former Data Models page. It compares out-of-fold predictions from the saved candidate models, filters the LGU view, inspects individual predictions, and reports metrics in the original beds-per-1,000 units. The target is an E2SFCA-derived indicator, not observed patient outcomes.
+- **Health Relationships** (`health-relationships`) combines the relationship analysis with the former Equity content in internal tabs. It explores associations between access measures and health outcomes, plus population-weighted equity by poverty, GIDA status, age structure, and region. Relationships remain observational, not causal.
+- **Crisis Impact** (`crisis-impact`) evaluates a hypothetical hospital closure or bed-capacity reduction using existing facility and travel-time inputs, then recomputes accessible capacity and the composite gap index. Its affected-population measure is a modeled threshold crossing, not a real-time outage forecast. Demo results are synthetic.
+
+These three workspaces live under **Analyze**. The former Equity and Data Models entries are no longer separate navigation items; Equity analysis is integrated into Health Relationships. Run `python -m isagiph.pipeline` for real inputs or `python -m isagiph.pipeline --demo` for synthetic examples before launching Streamlit. Crisis Impact needs processed `points.csv` and `facilities.csv`; it reconstructs travel-time inputs using the pipeline's configured method. Re-run the pipeline after changing data, and reload the page so Streamlit refreshes file-backed caches.
+
+
+## Analytical rigor updates
+
+- Regression Explorer headline metrics are computed on all valid LGUs in the chosen geographic scope; error-focus filters only control which cases are inspected.
+- Regression prediction bands are calibrated using inner cross-fitted residuals from each outer training fold and evaluated on outer-held-out rows. They are empirical diagnostics, not formal conformal guarantees; if nested spatial validation is unavailable, intervals are omitted.
+- Health Relationships includes an optional covariate-adjusted standardized association with region-cluster robust inference only when at least eight region clusters are available. This remains observational, not causal. Synthetic facility-delivery outcomes are marked as demo-only and are excluded in real-data mode.
+- Crisis Impact reports route-record availability and licensed-bed totals separately from modeled threshold reach. Missing route records can reflect the finite search matrix and must not automatically be interpreted as observed lack of care.
+- These safeguards improve reporting and validation discipline but do not replace independent validation against observed travel times, staffed capacity, service availability, utilisation or health outcomes.
