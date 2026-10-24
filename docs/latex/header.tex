@@ -1,0 +1,36 @@
+\usepackage{xcolor}
+\definecolor{isgnavy}{HTML}{002157}
+\definecolor{isgred}{HTML}{CE3550}
+\definecolor{isgblue}{HTML}{4F7FBE}
+\definecolor{isggrey}{HTML}{5A6B85}
+\definecolor{isgblack}{HTML}{111111}
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries\color{isgnavy}}{\thesection}{0.6em}{}[{\color{isgred}\titlerule[0.8pt]}]
+\titleformat{\subsection}{\large\bfseries\color{isgnavy}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{isgblue}}{\thesubsubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{2.2ex plus .5ex}{1.2ex}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\raisebox{-0.25\height}{\includegraphics[height=13pt]{logo_full.png}}\hspace{6pt}\textcolor{isgblack}{\textbf{I-}}\textcolor{isgblue}{\textbf{SAGI}}\textcolor{isgred}{\textbf{PH}}}
+\fancyhead[R]{\small\textcolor{isggrey}{\isgdoctitle}}
+\fancyfoot[L]{\small\textcolor{isggrey}{I-SAGIPH}}
+\fancyfoot[R]{\small\textcolor{isggrey}{\thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{isgnavy}\leaders\hrule height \headrulewidth\hfill}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[R]{\small\textcolor{isggrey}{\thepage}}\renewcommand{\headrulewidth}{0pt}}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\renewcommand{\arraystretch}{1.25}
+\usepackage{etoolbox}
+\AtBeginEnvironment{longtable}{\small}
+\AtBeginEnvironment{Shaded}{\footnotesize}
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+\AtBeginDocument{\hypersetup{colorlinks=true, linkcolor=isgnavy, urlcolor=isgblue, citecolor=isgnavy}}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\usepackage{xurl}
+\usepackage{graphicx}
+\setlength{\emergencystretch}{3em}

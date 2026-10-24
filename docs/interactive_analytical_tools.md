@@ -1,0 +1,22 @@
+# Interactive analytical tools
+
+## Regression Explorer
+
+The Regression Explorer uses row-level cross-fitted predictions exported by `isagiph.ml.run_ml`. Candidate models share the regional outer-fold assignment; the default nested-selection prediction is evaluated through nested cross-fitting. Headline MAE, RMSE, R² and bias always use every eligible LGU in the selected geographic scope, independently of the error-focus filter used to inspect extreme cases. The reference is the E2SFCA-derived accessible-bed rate, not observed staffed-bed availability, utilisation, quality, or clinical outcomes. For each outer fold, the empirical prediction-band width is estimated using inner out-of-fold residuals from the outer training regions; interval coverage is assessed only on corresponding outer-held-out rows. Bands are explicitly not formal distribution-free conformal guarantees. If nested spatial calibration is unavailable, the system omits intervals rather than reusing the evaluation residuals. Global permutation importance is distinguished from a row-specific explanation.
+
+## Crisis Impact
+
+The Crisis Impact page removes a selected facility and its travel-time pairs, or reduces its licensed bed supply while retaining the facility location. It calls the same accessibility function used by the pipeline and rebuilds composite indices with the configured index method. The threshold-impact count is the demand-point population that was inside the selected travel-time threshold before the scenario and has no recorded route within that threshold afterwards. The UI separately reports population with and without a usable route record before and after the scenario because the sparse matrix is range-limited; lack of a route record is not, by itself, proof that the person is geographically unreachable. Licensed-bed totals are identified as licensed supply, not staffed or operational capacity. The tool does not simulate patient behaviour, referral pathways, ambulance dispatch, service substitution, facility service mix, construction, staffing, or surge capacity. All results are counterfactual scenarios, not an outage feed or forecast. `demo` inputs must not be interpreted as Philippine findings.
+
+## Health Relationships
+
+The Health Relationships workspace has internal **Relationships** and **Equity & Fairness** tabs. The equity tab preserves the former Equity page's population-weighted poverty fifths, concentration curves and indices, GIDA and age comparisons, and region-level summaries. The Relationships tab compares available access indicators against compatible outcomes with Spearman's rank correlation and an optional simple fitted trend. It also offers an exploratory standardized OLS association adjusted for user-selected measured context variables. A region-cluster robust interval and p-value are emitted only when at least eight regional clusters are available; otherwise the adjusted coefficient is shown without cluster-based inference. This threshold is a practical safeguard, not a universal statistical rule, and cluster-robust variance does not guarantee removal of residual spatial dependence. Nominal Spearman p-values remain exploratory under spatial dependence and repeated pair selection. The page warns when a selected outcome is part of the Health Need Index. `facility_delivery_rate` is synthetic in demo mode and is excluded in real-data mode unless a separately sourced outcome is integrated in a future data build. Where raw outcome or smoothed-outcome imputation flags are available, users can exclude imputed records. Users must verify reference years, definitions and geographic coverage before formal interpretation.
+
+## Reproducibility
+
+The workspaces use `data/processed/lgu_results.csv`, `ml_predictions.csv`, `ml_importance.csv`, `ml_metrics.json`, `points.csv`, and `facilities.csv`. Rebuild outputs after changes to source files/configuration. The Crisis Impact page caches the travel-time matrix by source file signature within a running Streamlit process; reload/clear Streamlit cache after changes to related input files that don't change those signatures.
+
+
+## Analyze navigation
+
+The Analyze navigation contains exactly three workspaces: Regression Explorer (using the existing `insights` route in place of the former Data Models page), Health Relationships (with internal Relationships and Equity & Fairness tabs), and Crisis Impact. The former Equity and Data Models pages are not separate top-level navigation entries; the equity content is preserved inside Health Relationships.
