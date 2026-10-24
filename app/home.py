@@ -35,11 +35,7 @@ st.markdown(f"""
 <div class="hero">
   <div>
     <span class="kicker">Healthcare gap mapping · Philippines</span>
-    <div class="hero-headlines" aria-label="I-SAGIPH: Tracing healthcare gaps and informing better care">
-      <h1 class="headline">Where does care <em>fall short</em> of need?</h1>
-      <h1 class="headline">Tracing health gaps.<br><em>Informing better care.</em></h1>
-      <h1 class="headline">Turning public data into<br><em>clearer health priorities.</em></h1>
-    </div>
+    <h1 style="margin-top:14px">Where does care fall short of need?</h1>
     <div class="acro"><b>{BRAND_HTML}</b>: Interactive Software for Analyzing Geographic Inadequacy in Philippine Healthcare</div>
     <p class="lead">A clearer picture of healthcare access across Philippine cities and municipalities—using population, poverty, isolation, facility capacity, and transport assumptions to show where needs and reachable care diverge.</p>
     <div class="cta"><a class="btn solid" href="map" target="_self">Explore the map</a>
