@@ -62,9 +62,7 @@ On top of the indices it:
 | Python | 3.11 (installed automatically by the conda environment) |
 | Package manager | [Anaconda](https://www.anaconda.com/download) or Miniconda (recommended), or `pip` |
 | Disk space | About 5 GB free for the source data and outputs |
-| Memory | 8 GB RAM minimum; 16 GB recommended for road-network routing |
 | Internet | Only to download the project and the source data; the analysis itself runs offline |
-| Poppler (`pdftotext`) | Reads the DOH and PCSO PDF tables. Installed by the conda environment; with `pip`, install it separately (see Troubleshooting) |
 
 ---
 
