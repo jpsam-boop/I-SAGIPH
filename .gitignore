@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+data/raw/*
+data/manual/*
+data/interim/*
+data/processed/*
+data/demo/*
+!data/**/.gitkeep
+!data/raw/MANIFEST.csv
+reports/*.csv
+data/community/*

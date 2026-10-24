@@ -1,0 +1,10 @@
+# Recommended on Windows: conda-forge resolves the GDAL/PROJ stack cleanly.
+name: isagiph
+channels: [conda-forge]
+dependencies:
+  - python=3.11
+  - pip
+  - poppler          # provides pdftotext, used to read the GIDA PDF
+  - pip:
+      - -r requirements.txt
+      - -e .
